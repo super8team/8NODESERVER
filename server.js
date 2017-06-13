@@ -221,7 +221,8 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
    };
    socket.on('kidGPS', function (data) {
      console.log(data);
-     socket.emit('getKidGPS', child);
+     //socket.emit('getKidGPS', child);
+     socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
    });
    socket.on('studentGPS', function (data) {
      console.log(data);
@@ -234,7 +235,7 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
       console.log("DB connected");
        var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
        +data.id+"'";
-       //소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
+       //받은 정보의 아이디를 가지고 학반을 조회 한 뒤 각 반별로 데이터를 정리함
        var query = connection.query(selectStudentGradeQuery,function(error,results){
 
          console.log(query);
@@ -252,5 +253,5 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
 });
  io.sockets.on('disconnection', function(){
    console.log("closed!!!");
- //connection.end();
+ connection.end();
    });

@@ -21,23 +21,23 @@ var posData;
 //
 // });
 //mysql connection pool 생성
-// var pool = mysql.createPool({
-//
-//     host :'localhost',
-//
-//     port : 3306,
-//
-//     user : 'root',
-//
-//     password : '1111',
-//
-//     database:'test',
-//
-//     connectionLimit:20,
-//
-//     waitForConnections:false
-//
-// });
+var pool = mysql.createPool({
+
+    host :'localhost',
+
+    port : 3306,
+
+    user : 'root',
+
+    password : '',
+
+    database:'learnfun',
+
+    connectionLimit:20,
+
+    waitForConnections:false
+
+});
 //제이슨 형태의 배열로 만든다
 var class1 = new Array();
 var class2 = new Array();
@@ -207,7 +207,36 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
    socket.on('class3', function (data) {
      socket.emit('getclass', wrapClass3);
    });
+   var child = {
+     child : child1
+   };
+   var child1 = {
+     name : "박성원",
+     lat : 35.891765,
+     lng : 128.614243,
+     gender : "M",
+     class : "2"
+   };
+   socket.on('kidGPS', function (data) {
+     console.log(data);
+     socket.emit('getKidGPS', child);
+   });
+   socket.on('studentGPS', function (data) {
+     console.log(data);
+   });
 
+   socket.on('childGPS', function (data) {
+    console.log(data);
+    pool.getConnection(function(err,connection){
+       var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"+data.id+"'";
+       //소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
+       var query = connection.query(selectStudentGradeQuery,function(error,results){
+
+         console.log(query);
+
+       });
+    }
+   });
 // socket.on('plzgps', function () {
 //
 //   socket.emit('gps', posData);   //클라이언트에 gps 이벤트를 보냅니다.

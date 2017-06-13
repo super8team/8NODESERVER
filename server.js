@@ -44,7 +44,7 @@ var class2 = new Array();
 var class3 = new Array();
 //제이슨 오브젝트로 만든다
 var student1 = {
-  name : "cho",
+  name : "조규승",
   lat : 35.897532,
   lng : 128.622696,
   gender : "M",
@@ -52,7 +52,7 @@ var student1 = {
 };
 
 var student2 = {
-  name : "kim",
+  name : "김선중",
   lat : 35.896664,
   lng : 128.619985,
   gender : "F",
@@ -61,14 +61,14 @@ var student2 = {
 
 
 var student3 = {
-  name : "park",
+  name : "박성원",
   lat : 35.891765,
   lng : 128.614243,
   gender : "M",
   class : "2"
 };
 var student4 = {
-  name : "choi",
+  name : "이진아",
   lat : 35.897884,
   lng : 128.608298,
   gender : "F",
@@ -76,14 +76,14 @@ var student4 = {
 };
 
 var student5 = {
-  name : "kun",
+  name : "정연제",
   lat : 35.895238,
   lng : 128.622741,
   gender : "F",
   class : "3"
 };
 var student6 = {
-  name : "seo",
+  name : "권유성",
   lat : 35.893233,
   lng : 128.624808,
   gender : "F",

@@ -207,15 +207,17 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
    socket.on('class3', function (data) {
      socket.emit('getclass', wrapClass3);
    });
-   var child = {
-     child : child1
-   };
+
    var child1 = {
      name : "박성원",
      lat : 35.891765,
      lng : 128.614243,
      gender : "M",
      class : "2"
+   };
+
+   var child = {
+     child : child1
    };
    socket.on('kidGPS', function (data) {
      console.log(data);
@@ -227,15 +229,18 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
 
    socket.on('childGPS', function (data) {
     console.log(data);
+    console.log("childGPS IN");
     pool.getConnection(function(err,connection){
-       var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"+data.id+"'";
+      console.log("DB connected");
+       var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
+       +data.id+"'";
        //소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
        var query = connection.query(selectStudentGradeQuery,function(error,results){
 
          console.log(query);
 
        });
-    }
+    })
    });
 // socket.on('plzgps', function () {
 //

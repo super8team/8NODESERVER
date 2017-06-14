@@ -223,7 +223,7 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
      console.log(data);
      console.log("kidGPS IN");
      socket.emit('getKidGPS', child);
-     socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
+     //socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
      console.log("child 보냈습니다 : " + child);
    });
    socket.on('studentGPS', function (data) {

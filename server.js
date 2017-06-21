@@ -100,21 +100,21 @@ var student8 = {
   lat : 35.896494,
   lng : 128.624048,
   gender : "F",
-  class : "1"
+  class : "2"
 };
 var student9 = {
   name : "정겨울",
   lat : 35.897598,
   lng : 128.622160,
   gender : "F",
-  class : "1"
+  class : "2"
 };
 var student10 = {
   name : "김소피아",
   lat : 35.896077,
   lng : 128.621977,
   gender : "F",
-  class : "1"
+  class : "2"
 };
 //여기부터 3반
 var student11 = {
@@ -136,21 +136,21 @@ var student13 = {
   lat : 35.897433,
   lng : 128.621322,
   gender : "F",
-  class : "1"
+  class : "3"
 };
 var student14 = {
   name : "심들판",
   lat : 35.895938,
   lng : 128.621408,
   gender : "F",
-  class : "1"
+  class : "3"
 };
 var student15 = {
   name : "강사막",
   lat : 35.897042,
   lng : 128.622427,
   gender : "F",
-  class : "1"
+  class : "3"
 };
 //제이슨배열안에 제이슨객체를 넣는다
 class1.push(student1);

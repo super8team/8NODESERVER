@@ -271,9 +271,9 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
    socket.on('class2', function (data) {
      socket.emit('getclass', wrapClass2);
    });
-   socket.on('connection', function (data) {
-     console.log(data);
-   });
+  //  socket.on('connection', function (data) {
+  //    console.log(data);
+  //  });
 
 
    socket.on('class3', function (data) {

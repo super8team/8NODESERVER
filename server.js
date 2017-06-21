@@ -21,23 +21,23 @@ var posData;
 //
 // });
 //mysql connection pool 생성
-// var pool = mysql.createPool({
-//
-//     host :'localhost',
-//
-//     port : 3306,
-//
-//     user : 'root',
-//
-//     password : '',
-//
-//     database:'learnfun',
-//
-//     connectionLimit:20,
-//
-//     waitForConnections:false
-//
-// });
+var pool = mysql.createPool({
+
+    host :'localhost',
+
+    port : 3306,
+
+    user : 'root',
+
+    password : '',
+
+    database:'learnfun',
+
+    connectionLimit:20,
+
+    waitForConnections:false
+
+});
 //제이슨 형태의 배열로 만든다
 var class1 = new Array();
 var class2 = new Array();
@@ -155,9 +155,9 @@ var student15 = {
 //제이슨배열안에 제이슨객체를 넣는다
 class1.push(student1);
 class1.push(student2);
-// class1.push(student3);
-// class1.push(student4);
-// class1.push(student5);
+class1.push(student3);
+class1.push(student4);
+class1.push(student5);
 class2.push(student6);
 class2.push(student7);
 class2.push(student8);
@@ -206,7 +206,7 @@ http.listen(PORT,function(){
   console.log("server on!");
 });
   //소켓에 접속
-io.sockets.on('connection', function (socket) { // connection이 발생할 때 핸들러를 실행합니다.
+io.sockets.on('connect', function (socket) { // connection이 발생할 때 핸들러를 실행합니다.
 
 console.log('server running at 8000 port'+socket.id);
 
@@ -280,43 +280,45 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
      socket.emit('getclass', wrapClass3);
    });
 
-   var child1 = {
-     name : "박성원",
-     lat : 35.891765,
-     lng : 128.614243,
-     gender : "M",
-     class : "2"
-   };
-
-   var child = {
-     child : child1
-   };
-   socket.on('kidGPS', function (data) {
-     console.log(data);
-     console.log("kidGPS IN");
-     socket.emit('getKidGPS', child);
-     //socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
-     console.log("child 보냈습니다 : " + child);
-   });
-   socket.on('studentGPS', function (data) {
-     console.log(data);
-   });
-
-   socket.on('childGPS', function (data) {
-    console.log(data);
-    console.log("childGPS IN");
-    pool.getConnection(function(err,connection){
-      console.log("DB connected");
-       var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
-       +data.id+"'";
-       //받은 정보의 아이디를 가지고 학반을 조회 한 뒤 각 반별로 데이터를 정리함
-       var query = connection.query(selectStudentGradeQuery,function(error,results){
-
-         console.log(query);
-
-       });
-    })
-   });
+  //  var child1 = {
+  //    name : "박성원",
+  //    lat : 35.891765,
+  //    lng : 128.614243,
+  //    gender : "M",
+  //    class : "2"
+  //  };
+   //
+  //  var child = {
+  //    child : child1
+  //  };
+  //  socket.on('kidGPS', function (data) {
+  //    console.log(data);
+  //    console.log("kidGPS IN");
+  //    socket.emit('getKidGPS', child);
+  //    //socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
+  //    console.log("child 보냈습니다 : " + child);
+  //  });
+  //  socket.on('studentGPS', function (data) {
+  //    console.log(data);
+  //  });
+   //
+  //  socket.on('childGPS', function (data) {
+  //   console.log(data);
+  //   console.log("childGPS IN");
+  //   pool.getConnection(function(err,connection){
+  //     console.log("DB connected");
+  //      var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
+  //      +data.id+"'";
+  //      //받은 정보의 아이디를 가지고 학반을 조회 한 뒤 각 반별로 데이터를 정리함
+  //      var query = connection.query(selectStudentGradeQuery,function(error,results){
+   //
+  //        console.log(query);
+   //
+  //      });
+   //
+  //      connection.end();
+  //   })
+  //  });
 // socket.on('plzgps', function () {
 //
 //   socket.emit('gps', posData);   //클라이언트에 gps 이벤트를 보냅니다.
@@ -325,6 +327,5 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
 //socket.emit('my other event', { lat : pos.coords.latitude , lng : pos.coords.longitude });   //서버에 my other event 이벤트를 보냅니다.
 socket.on('disconnection', function(){
   console.log("closed!!!");
-  connection.end();
   });
 });

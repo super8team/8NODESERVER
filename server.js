@@ -208,7 +208,7 @@ http.listen(PORT,function(){
   //소켓에 접속
 io.sockets.on('connection', function (socket) { // connection이 발생할 때 핸들러를 실행합니다.
 
-console.log('server running at 8000 port');
+console.log('server running at 8000 port'+socket);
 
 
 //클라이언트에서 my other evnet 라는 호출이 오면

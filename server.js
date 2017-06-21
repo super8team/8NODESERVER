@@ -42,9 +42,10 @@ var pool = mysql.createPool({
 var class1 = new Array();
 var class2 = new Array();
 var class3 = new Array();
+//학생의 gps를 받으면 그 학생이 몇반인지를 체크하여
 //제이슨 오브젝트로 만든다
 var student1 = {
-  name : "조규승",
+  name : "김봉춘",
   lat : 35.897532,
   lng : 128.622696,
   gender : "M",
@@ -52,42 +53,104 @@ var student1 = {
 };
 
 var student2 = {
-  name : "김선중",
+  name : "이기춘",
   lat : 35.896664,
   lng : 128.619985,
   gender : "F",
   class : "1"
 };
-
-
 var student3 = {
-  name : "박성원",
+  name : "함초롬",
+  lat : 35.894991,
+  lng : 128.619800,
+  gender : "F",
+  class : "1"
+};
+var student4 = {
+  name : "강물맑음",
+  lat : 35.894930, 
+  lng : 128.621581,
+  gender : "F",
+  class : "1"
+};
+var student5 = {
+  name : "정수철",
+  lat : 35.895877,
+  lng : 128.623480,
+  gender : "F",
+  class : "1"
+};
+//여기부터 2반
+var student6 = {
+  name : "김봄",
   lat : 35.891765,
   lng : 128.614243,
   gender : "M",
   class : "2"
 };
-var student4 = {
-  name : "이진아",
+var student7 = {
+  name : "이여름",
   lat : 35.897884,
   lng : 128.608298,
   gender : "F",
   class : "2"
 };
-
-var student5 = {
-  name : "정연제",
+var student8 = {
+  name : "박가을",
+  lat : 35.896494,
+  lng : 128.624048,
+  gender : "F",
+  class : "1"
+};
+var student9 = {
+  name : "정겨울",
+  lat : 35.897598,
+  lng : 128.622160,
+  gender : "F",
+  class : "1"
+};
+var student10 = {
+  name : "김소피아",
+  lat : 35.896077,
+  lng : 128.621977,
+  gender : "F",
+  class : "1"
+};
+//여기부터 3반
+var student11 = {
+  name : "이산",
   lat : 35.895238,
   lng : 128.622741,
   gender : "F",
   class : "3"
 };
-var student6 = {
-  name : "권유성",
+var student12 = {
+  name : "김바다",
   lat : 35.893233,
   lng : 128.624808,
   gender : "F",
   class : "3"
+};
+var student13 = {
+  name : "양초원",
+  lat : 35.897433,
+  lng : 128.621322,
+  gender : "F",
+  class : "1"
+};
+var student14 = {
+  name : "심들판",
+  lat : 35.895938,
+  lng : 128.621408,
+  gender : "F",
+  class : "1"
+};
+var student15 = {
+  name : "강사막",
+  lat : 35.897042,
+  lng : 128.622427,
+  gender : "F",
+  class : "1"
 };
 //제이슨배열안에 제이슨객체를 넣는다
 class1.push(student1);

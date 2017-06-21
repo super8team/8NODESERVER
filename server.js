@@ -68,7 +68,7 @@ var student3 = {
 };
 var student4 = {
   name : "강물맑음",
-  lat : 35.894930, 
+  lat : 35.894930,
   lng : 128.621581,
   gender : "F",
   class : "1"
@@ -155,10 +155,19 @@ var student15 = {
 //제이슨배열안에 제이슨객체를 넣는다
 class1.push(student1);
 class1.push(student2);
-class2.push(student3);
-class2.push(student4);
-class3.push(student5);
-class3.push(student6);
+class1.push(student3);
+class1.push(student4);
+class1.push(student5);
+class2.push(student6);
+class2.push(student7);
+class2.push(student8);
+class2.push(student9);
+class2.push(student10);
+class3.push(student11);
+class3.push(student12);
+class3.push(student13);
+class3.push(student14);
+class3.push(student15);
 //새로운 제이슨객체를 만들어서 특정 이름으로 제이슨 배열을 넣는다
 var wrapClass1 = {
   class : class1

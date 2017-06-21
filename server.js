@@ -323,7 +323,7 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
 //
 // });
 //socket.emit('my other event', { lat : pos.coords.latitude , lng : pos.coords.longitude });   //서버에 my other event 이벤트를 보냅니다.
-sockets.on('disconnection', function(){
+socket.on('disconnection', function(){
   console.log("closed!!!");
   connection.end();
   });

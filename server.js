@@ -259,11 +259,9 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
       //   }
       //
       // });
-
-        console.log("브로프캐스트보낸다!");
        //socket.broadcast.emit('getclass1', wrapClass1);   //전체클라이언트에 gps 이벤트를 보냅니다.
        socket.emit('getclass', wrapClass1);
-       console.log("브로프캐스트보냈다!");
+
 
       //connection.release(); // 커넥션을 풀로 되돌림
     //})
@@ -280,45 +278,45 @@ socket.on('class1', function (data) { // 클라이언트에서 my other event가
      socket.emit('getclass', wrapClass3);
    });
 
-  //  var child1 = {
-  //    name : "박성원",
-  //    lat : 35.891765,
-  //    lng : 128.614243,
-  //    gender : "M",
-  //    class : "2"
-  //  };
-   //
-  //  var child = {
-  //    child : child1
-  //  };
-  //  socket.on('kidGPS', function (data) {
-  //    console.log(data);
-  //    console.log("kidGPS IN");
-  //    socket.emit('getKidGPS', child);
-  //    //socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
-  //    console.log("child 보냈습니다 : " + child);
-  //  });
-  //  socket.on('studentGPS', function (data) {
-  //    console.log(data);
-  //  });
-   //
-  //  socket.on('childGPS', function (data) {
-  //   console.log(data);
-  //   console.log("childGPS IN");
-  //   pool.getConnection(function(err,connection){
-  //     console.log("DB connected");
-  //      var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
-  //      +data.id+"'";
-  //      //받은 정보의 아이디를 가지고 학반을 조회 한 뒤 각 반별로 데이터를 정리함
-  //      var query = connection.query(selectStudentGradeQuery,function(error,results){
-   //
-  //        console.log(query);
-   //
-  //      });
-   //
-  //      connection.end();
-  //   })
-  //  });
+   var child1 = {
+     name : "김봉춘",
+     lat : 35.891765,
+     lng : 128.614243,
+     gender : "M",
+     class : "1"
+   };
+
+   var child = {
+     child : child1
+   };
+   socket.on('kidGPS', function (data) {
+     console.log(data);
+     console.log("kidGPS IN");
+     socket.emit('getKidGPS', child);
+     //socket.broadcast.emit('getKidGPS', child);   //전체클라이언트에 gps 이벤트를 보냅니다.
+     console.log("child 보냈습니다 : " + child);
+   });
+   socket.on('studentGPS', function (data) {
+     console.log(data);
+   });
+
+   socket.on('childGPS', function (data) {
+    console.log(data);
+    console.log("childGPS IN");
+    pool.getConnection(function(err,connection){
+      console.log("DB connected");
+       var selectStudentGradeQuery = "select student.grade_class from student,users where user.no = student.student and user.id='"
+       +data.id+"'";
+       //받은 정보의 아이디를 가지고 학반을 조회 한 뒤 각 반별로 데이터를 정리함
+       var query = connection.query(selectStudentGradeQuery,function(error,results){
+
+         console.log(query);
+
+       });
+
+       connection.end();
+    })
+   });
 // socket.on('plzgps', function () {
 //
 //   socket.emit('gps', posData);   //클라이언트에 gps 이벤트를 보냅니다.

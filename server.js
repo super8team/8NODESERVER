@@ -2,9 +2,22 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io').listen(http);  // 80 포트로 소켓을 엽니다
+var mysql = require("mysql");
 // var fs = require('fs');
 var PORT = process.env.PORT || 8000;
+var connection = mysql.createConnection({
 
+    host : "localhost",
+
+    port : 3306,
+
+    user : "root",
+
+    password : "",
+
+    database : "learnfun"
+
+});
 
 http.listen(PORT,function(){
   console.log("server on!");
@@ -31,6 +44,66 @@ io.sockets.on('connect', function (socket) { // connection이 발생할 때 핸�
     console.log(data);
     socket.broadcast.emit('childGPSToParents', data);
   });
+
+  socket.on('saveTheToken', function (data) {//fcm 토큰을 받아와서 db에 저장
+    console.log(data);
+
+//     tokenObj.put("token",token);
+// tokenObj.put("name",userPreferences.getUserName());
+// tokenObj.put("school",userPreferences.getUserSchool());
+// tokenObj.put("grade",userPreferences.getUserGrade());
+// tokenObj.put("class",userPreferences.getUserClass());
+// tokenObj.put("userType",userPreferences.getUserType());
+
+var insertQuery = "INSERT INTO fcm SET ?";
+
+//소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
+var query = connection.query(insertQuery,data,function(error,results){});
+
+  });
+
+  socket.on('sendMsg', function (data) {//교사가 학생에게 메시지를 보냄
+
+    console.log(data);
+    var FCM = require('fcm-push');
+    var serverKey = 'AAAAZFdBtjY:APA91bGXkopthR5vSKk3F6UZem0Zx_nk8NdF9a4dmF_qVYe3LjdOYqc1bejk5phQtp85f5zOaTle7-oeMbnHlJR470rTb-BrjiPeKh6xNp2-Q1YIBd5o5sMFlg4FMpKONfMy8_g9yp1J';
+    var fcm = new FCM(serverKey);
+
+    var selectQuery = "select token from fcm where school='"+data.school+"' and grade=''"+data.grade+"' and class='"+data.class+"'";
+    var tokens;
+    var query = connection.query(selectQuery,data,function(error,results){
+      tokens = results;
+    });
+
+
+    for(var i =0 ; i < tokens.length;i++){
+
+      var message = {
+       to: tokens[i].token, //registration_token_or_topics
+       // required fill with device token or topics
+       collapse_key: 'your_collapse_key',
+       data: {
+          your_custom_data_key: 'your_custom_data_value'
+        },
+       notification: {
+          title: '공지사항',
+          body: data.msg
+        }
+      }; //callback style
+
+       fcm.send(message, function(err, response){
+         if (err) {
+            console.log("Something has gone wrong!");
+       } else {
+         console.log("Successfully sent with response: ", response);
+       }
+     });
+
+    }
+
+
+  });
+
 
   socket.on('disconnection', function(){
       console.log("closed!!!");

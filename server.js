@@ -47,7 +47,7 @@ io.sockets.on('connect', function (socket) { // connection이 발생할 때 핸�
 
   socket.on('saveTheToken', function (data) {//fcm 토큰을 받아와서 db에 저장
     console.log(data);
-
+connection.connect();
 //     tokenObj.put("token",token);
 // tokenObj.put("name",userPreferences.getUserName());
 // tokenObj.put("school",userPreferences.getUserSchool());
@@ -65,6 +65,7 @@ var query = connection.query(insertQuery,data,function(error,results){});
   socket.on('sendMsg', function (data) {//교사가 학생에게 메시지를 보냄
 
     console.log(data);
+    connection.connect();
     var FCM = require('fcm-push');
     var serverKey = 'AAAAZFdBtjY:APA91bGXkopthR5vSKk3F6UZem0Zx_nk8NdF9a4dmF_qVYe3LjdOYqc1bejk5phQtp85f5zOaTle7-oeMbnHlJR470rTb-BrjiPeKh6xNp2-Q1YIBd5o5sMFlg4FMpKONfMy8_g9yp1J';
     var fcm = new FCM(serverKey);

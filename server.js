@@ -59,7 +59,7 @@ var insertQuery = "INSERT INTO fcm SET ?";
 var selectQuery = "select token from fcm where token = '"+data.token+"'";
 //소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
 var query = connection.query(selectQuery,function(error,results){
-
+      console.log(results[0]);
          if(results[0] == undefined){
             console.log(results[0]);
            connection.query(insertQuery,data,function(error,results){});

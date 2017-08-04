@@ -89,14 +89,14 @@ var query = connection.query(selectQuery,function(error,results){
     var fcm = new FCM(serverKey);
 
     var selectQuery = "select token from fcm where school='"+data.school+"' and grade=''"+data.grade+"' and class='"+data.class+"'";
-    var query = connection.query(selectQuery,data,function(error,results){
+    var query = connection.query(selectQuery,function(error,results){
       tokens = results;
       console.log(results);
     });
 
 
 
-    for(var i =0 ; i < tokens.length;i++){
+    for(var i =0 ; i < tokens.length ;i++){
 
       var message = {
        to: tokens[i].token, //registration_token_or_topics

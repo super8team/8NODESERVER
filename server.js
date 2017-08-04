@@ -81,6 +81,7 @@ var query = connection.query(selectQuery,function(error,results){
   socket.on('sendMsg', function (data) {//교사가 학생에게 메시지를 보냄
 
     console.log(data);
+
     var tokens;
 
     pool.getConnection(function(err,connection){
@@ -92,34 +93,39 @@ var query = connection.query(selectQuery,function(error,results){
     var query = connection.query(selectQuery,function(error,results){
       tokens = results;
       console.log(results);
+      console.log(error);
+
+      for(var i =0 ; i < tokens.length ;i++){
+
+        var message = {
+         to: tokens[i].token, //registration_token_or_topics
+         // required fill with device token or topics
+         collapse_key: 'your_collapse_key',
+         data: {
+            your_custom_data_key: 'your_custom_data_value'
+          },
+         notification: {
+            title: '공지사항',
+            body: data.msg
+          }
+        }; //callback style
+
+         fcm.send(message, function(err, response){
+           if (err) {
+              console.log("Something has gone wrong!");
+         } else {
+           console.log("Successfully sent with response: ", response);
+         }
+       });
+
+      }
+
     });
 
 
 
-    for(var i =0 ; i < tokens.length ;i++){
 
-      var message = {
-       to: tokens[i].token, //registration_token_or_topics
-       // required fill with device token or topics
-       collapse_key: 'your_collapse_key',
-       data: {
-          your_custom_data_key: 'your_custom_data_value'
-        },
-       notification: {
-          title: '공지사항',
-          body: data.msg
-        }
-      }; //callback style
 
-       fcm.send(message, function(err, response){
-         if (err) {
-            console.log("Something has gone wrong!");
-       } else {
-         console.log("Successfully sent with response: ", response);
-       }
-     });
-
-    }
     connection.release(); // 커넥션을 풀로 되돌림
     });
   });

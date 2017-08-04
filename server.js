@@ -91,6 +91,7 @@ var query = connection.query(selectQuery,function(error,results){
     var selectQuery = "select token from fcm where school='"+data.school+"' and grade=''"+data.grade+"' and class='"+data.class+"'";
     var query = connection.query(selectQuery,data,function(error,results){
       tokens = results;
+      console.log(results);
     });
 
 

@@ -56,10 +56,17 @@ connection.connect();
 // tokenObj.put("userType",userPreferences.getUserType());
 
 var insertQuery = "INSERT INTO fcm SET ?";
-
+var selectQuery = "select token from fcm where token = '"+data.token+"'";
 //소켓으로 받은 데이터를 db에서 조회해서 id값이 있으면 업데이트 없으면 인설트
-var query = connection.query(insertQuery,data,function(error,results){});
+var query = connection.query(selectQuery,function(error,results){
 
+         if(results[0] == undefined){
+
+           connection.query(insertQuery,data,function(error,results){});
+
+         }
+
+    });
   });
 
   socket.on('sendMsg', function (data) {//교사가 학생에게 메시지를 보냄

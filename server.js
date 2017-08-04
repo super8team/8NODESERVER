@@ -61,7 +61,7 @@ var selectQuery = "select token from fcm where token = '"+data.token+"'";
 var query = connection.query(selectQuery,function(error,results){
 
          if(results[0] == undefined){
-
+            console.log(results[0]);
            connection.query(insertQuery,data,function(error,results){});
 
          }

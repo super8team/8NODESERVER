@@ -5,20 +5,24 @@ var io = require('socket.io').listen(http);  // 80 포트로 소켓을 엽니다
 var mysql = require("mysql");
 // var fs = require('fs');
 var PORT = process.env.PORT || 8000;
-var connection = mysql.createConnection({
 
-    host : "localhost",
+var pool = mysql.createPool({
+
+    host :'localhost',
 
     port : 3306,
 
-    user : "root",
+    user : 'root',
 
-    password : "",
+    password : '',
 
-    database : "learnfun"
+    database:'learnfun',
+
+    connectionLimit:20,
+
+    waitForConnections:false
 
 });
-
 http.listen(PORT,function(){
   console.log("server on!");
 });
@@ -47,7 +51,7 @@ io.sockets.on('connect', function (socket) { // connection이 발생할 때 핸�
 
   socket.on('saveTheToken', function (data) {//fcm 토큰을 받아와서 db에 저장
     console.log(data);
-connection.connect();
+pool.getConnection(function(err,connection){
 //     tokenObj.put("token",token);
 // tokenObj.put("name",userPreferences.getUserName());
 // tokenObj.put("school",userPreferences.getUserSchool());
@@ -67,12 +71,16 @@ var query = connection.query(selectQuery,function(error,results){
          }
 
     });
+    connection.release(); // 커넥션을 풀로 되돌림
   });
+
+
+})
 
   socket.on('sendMsg', function (data) {//교사가 학생에게 메시지를 보냄
 
     console.log(data);
-    connection.connect();
+    pool.getConnection(function(err,connection){
     var FCM = require('fcm-push');
     var serverKey = 'AAAAZFdBtjY:APA91bGXkopthR5vSKk3F6UZem0Zx_nk8NdF9a4dmF_qVYe3LjdOYqc1bejk5phQtp85f5zOaTle7-oeMbnHlJR470rTb-BrjiPeKh6xNp2-Q1YIBd5o5sMFlg4FMpKONfMy8_g9yp1J';
     var fcm = new FCM(serverKey);
@@ -82,6 +90,7 @@ var query = connection.query(selectQuery,function(error,results){
     var query = connection.query(selectQuery,data,function(error,results){
       tokens = results;
     });
+
 
 
     for(var i =0 ; i < tokens.length;i++){
@@ -108,8 +117,8 @@ var query = connection.query(selectQuery,function(error,results){
      });
 
     }
-
-
+    connection.release(); // 커넥션을 풀로 되돌림
+    });
   });
 
 

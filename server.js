@@ -89,7 +89,7 @@ var query = connection.query(selectQuery,function(error,results){
     var serverKey = 'AAAAZFdBtjY:APA91bGXkopthR5vSKk3F6UZem0Zx_nk8NdF9a4dmF_qVYe3LjdOYqc1bejk5phQtp85f5zOaTle7-oeMbnHlJR470rTb-BrjiPeKh6xNp2-Q1YIBd5o5sMFlg4FMpKONfMy8_g9yp1J';
     var fcm = new FCM(serverKey);
 
-    var selectQuery = "select token from fcm where grade=''"+data.grade+"' and class='"+data.class+"'";
+    var selectQuery = "select token from fcm where school ='"+data.school+"' and grade='"+data.grade+"' and class='"+data.class+"'";
     var query = connection.query(selectQuery,function(error,results){
       tokens = results;
       console.log(results);

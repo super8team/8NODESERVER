@@ -3,6 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io').listen(http);  // 80 포트로 소켓을 엽니다
 var mysql = require("mysql");
+var FCM = require('fcm-push');
 // var fs = require('fs');
 var PORT = process.env.PORT || 8000;
 
@@ -81,7 +82,7 @@ var query = connection.query(selectQuery,function(error,results){
 
     console.log(data);
     pool.getConnection(function(err,connection){
-    var FCM = require('fcm-push');
+
     var serverKey = 'AAAAZFdBtjY:APA91bGXkopthR5vSKk3F6UZem0Zx_nk8NdF9a4dmF_qVYe3LjdOYqc1bejk5phQtp85f5zOaTle7-oeMbnHlJR470rTb-BrjiPeKh6xNp2-Q1YIBd5o5sMFlg4FMpKONfMy8_g9yp1J';
     var fcm = new FCM(serverKey);
 

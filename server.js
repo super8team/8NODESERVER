@@ -109,10 +109,8 @@ var query = connection.query(selectQuery,function(error,results){
             body: data.msg
           }
         }; //callback style
-        var messageObj = {
-          message : message
-        };
-         fcm.send(messageObj, function(err, response){
+
+         fcm.send(message, function(err, response){
            if (err) {
               console.log("Something has gone wrong!");
          } else {

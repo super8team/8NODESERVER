@@ -94,7 +94,7 @@ var query = connection.query(selectQuery,function(error,results){
       tokens = results;
       console.log(results);
       console.log(error);
-
+      console.log("메시지 : "+data.msg);
       for(var i =0 ; i < tokens.length ;i++){
 
         var message = {
@@ -121,10 +121,6 @@ var query = connection.query(selectQuery,function(error,results){
       }
 
     });
-
-
-
-
 
     connection.release(); // 커넥션을 풀로 되돌림
     });

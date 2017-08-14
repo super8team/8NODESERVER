@@ -102,7 +102,8 @@ var query = connection.query(selectQuery,function(error,results){
          // required fill with device token or topics
          collapse_key: 'your_collapse_key',
          data: {
-            your_custom_data_key: 'your_custom_data_value'
+           title: '공지사항',
+           body: data.msg
           },
          notification: {
             title: '공지사항',
